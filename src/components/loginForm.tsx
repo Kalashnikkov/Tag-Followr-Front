@@ -1,5 +1,10 @@
 import React from 'react';
 import "../App.css"
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import logo from '../img/logo.png'
 
 interface IState {
     username: string,
@@ -42,25 +47,35 @@ class LoginForm extends React.Component<IProps, IState> {
         event.preventDefault()
     }
 
-    // public getAccountsAPI() {
-        
-    // }
-
     public render() {
         return(
             <div className="testing">
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username:
-                        <input type="text" value={this.state.username} onChange={this.handleUsername}/>
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" value={this.state.password} onChange={this.handlePassword}/>
-                    </label>
-                    <input type="submit" value="submit"/>
+                <Paper className="Login-Form">
+                <img src={logo} className="Logo-Img"/>
+                <form onSubmit={this.handleSubmit} className="Login-Box">
+                    <TextField
+                    label="Username"
+                    type="text"
+                    margin="normal"
+                    variant="filled"
+                    value={this.state.username} 
+                    onChange={this.handleUsername}
+                    className="Login-Dets"
+                    />
+                    <TextField
+                    label="Password"
+                    type="password"
+                    margin="normal"
+                    variant="filled"
+                    value={this.state.password} 
+                    onChange={this.handlePassword}
+                    className="Login-Dets"
+                    />
+                    <Button variant="contained" type="submit" value="submit" className="Login-Button">
+                        Login
+                    </Button>
                 </form>
-
+                </Paper>
             </div>
         )
     }

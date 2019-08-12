@@ -1,11 +1,64 @@
 .Login-Form {
-    background: yellow;
-    width: 500px;
-    height: 500px;
+    /* background: yellow; */
     align-self: center;
 }
 
 .testing {
     align-content: center;
-    background: blue;
+    /* background: blue; */
+}
+
+.Outside-Box {
+    background: lightgoldenrodyellow;
+    position: relative;
+    top: 50px;
+    width: 95%;
+    left: 2.5%;
+    padding-top: 10px;
+}
+
+.Outside-Box > p {
+    text-align: center;
+}
+
+.Video-Player {
+    height: 500px;
+    padding: 10px;
+}
+
+.Login-Form {
+    width: 50%;
+    height: 750px;
+    position: relative;
+    top: 25px;
+    margin: auto;
+}
+
+.Login-Dets {
+    width: 90%;
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    height: 10%;
+}
+
+.Login-Box {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+}
+
+.Login-Button {
+    position: relative;
+    top: 25%;
+    margin: auto;
+    width: 90%;
+    left: 5%;
+    height: 10%;
+}
+
+.Logo-Img {
+    position: relative;
+    left: 25%;
+    top: 10%;
 }

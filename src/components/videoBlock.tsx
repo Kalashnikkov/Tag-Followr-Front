@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactPlayer from 'react-player'
+import "../App.css"
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Typography } from '@material-ui/core';
 
 interface IState {
     genre: string,
@@ -51,14 +55,31 @@ class VideoBlock extends React.Component<IProps, IState> {
 
     public render() {
         return(
-            <div>
-                {this.addVideos()}
+            <div className="Outside-Box">
                 <p>
-                    Hello
+                    Hello World!
                 </p>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Paper className="Video-Player">
+                            <ReactPlayer
+                                style={{padding: 2}}
+                                url="https://www.youtube.com/watch?v=C6xu72ixbxo"
+                                playing={false}
+                                width="100%"
+                                height="100%"
+                            />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs>
+                        <Paper>
+                            Hello
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
 }
-
+{/* {this.addVideos()} */}
 export default VideoBlock;

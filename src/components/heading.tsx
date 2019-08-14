@@ -19,9 +19,11 @@ class Heading extends React.Component <IProps, {}> {
                 <div>
                     <AppBar position="static"  className="Heading">
                         <Toolbar>
+                            {this.props.user != "" && 
                             <Typography>
                                 Hello, {this.props.user}
                             </Typography>
+                            }
                         </Toolbar>
                     </AppBar>
                 </div>

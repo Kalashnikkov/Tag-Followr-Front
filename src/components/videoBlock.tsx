@@ -53,28 +53,48 @@ class VideoBlock extends React.Component<IProps, IState> {
         return videoURLs;
     }
 
+    public addRow = () => {
+        return(
+            <React.Fragment>
+            <Grid item xs={4}>
+                <Paper>
+                    <ReactPlayer 
+                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
+                        playing={false}
+                    />
+                </Paper>
+            </Grid>
+
+            <Grid item xs={4}>
+            <Paper>
+                    <ReactPlayer 
+                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
+                        playing={false}
+                    />
+            </Paper>
+            </Grid>
+
+            <Grid item xs={4}>
+                <Paper>
+                    <ReactPlayer 
+                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
+                        playing={false}
+                    />
+                </Paper>
+            </Grid>
+            </React.Fragment>
+        )
+    }
+
     public render() {
         return(
             <div className="Outside-Box">
-                <p>
-                    Hello World!
-                </p>
-                <Grid container spacing={3}>
-                    <Grid item xs>
-                        <Paper className="Video-Player">
-                            <ReactPlayer
-                                style={{padding: 2}}
-                                url="https://www.youtube.com/watch?v=C6xu72ixbxo"
-                                playing={false}
-                                width="100%"
-                                height="100%"
-                            />
-                        </Paper>
+                <Grid container spacing={1}>
+                    <Grid container item xs={12} spacing={3}>
+                        {this.addRow()}
                     </Grid>
-                    <Grid item xs>
-                        <Paper>
-                            Hello
-                        </Paper>
+                    <Grid container item xs={12} spacing={3}>
+                        {this.addRow()}
                     </Grid>
                 </Grid>
             </div>

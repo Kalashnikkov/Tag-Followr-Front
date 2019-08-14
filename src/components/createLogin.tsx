@@ -1,34 +1,32 @@
 import React from 'react';
 import "../App.css"
 import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logo from '../img/logo.png'
-import CreateLogin from './createLogin'
 
 interface IState {
     username: string,
     password: string,
-    createAccount: boolean,
 }
 
 interface IProps {
     login: Function,
+    create: Function,
 }
 
-class LoginForm extends React.Component<IProps, IState> {
+class CreateLogin extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props)
         this.state={
-          username: "",
-          password: "",
-          createAccount: false,
+            username:"",
+            password:"",
         }
 
         this.handleUsername=this.handleUsername.bind(this);
         this.handlePassword=this.handlePassword.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
-        this.createAccount=this.createAccount.bind(this);
+        this.handleClick=this.handleClick.bind(this);
     }
 
     public handleUsername(event:any) {
@@ -43,36 +41,19 @@ class LoginForm extends React.Component<IProps, IState> {
         })
     }
     public handleSubmit(event:any) {
-        if(this.state.username === "admin" && this.state.password === "12345") {
+        if(this.state.username === "hello" && this.state.password === "world") {
             this.props.login()
-
         }
         event.preventDefault()
     }
 
-    public createAccount() {
-        if (this.state.createAccount === false) {
-            this.setState({
-                username:"",
-                password:"",
-                createAccount: true,
-            })
-        } else {
-            this.setState({
-                username:"",
-                password:"",
-                createAccount: false,
-            })
-        }
+    public handleClick() {
+        this.props.create();
     }
 
     public render() {
         return(
-            <div className="testing">
-                <Paper className="Login-Form">
-                {!this.state.createAccount && (
-                <div>
-                <img src={logo} className="Logo-Img"/>
+            <div>
                 <form onSubmit={this.handleSubmit} className="Login-Box">
                     <TextField
                     label="Username"
@@ -93,22 +74,15 @@ class LoginForm extends React.Component<IProps, IState> {
                     className="Login-Dets"
                     />
                     <Button variant="contained" type="submit" value="submit" className="Login-Button">
-                        Login
+                        Confirm
                     </Button>
-                    {/* <Facebook/> */}
                 </form>
-                <Button variant="contained" onClick={this.createAccount}>
-                    Create Account
+                <Button variant="contained" onClick={this.handleClick}>
+                        Back
                 </Button>
-                </div>)}
-                {this.state.createAccount && (
-                    <CreateLogin login={this.props.login} create={this.createAccount}/>
-                )}
-                </Paper>
             </div>
         )
     }
-
 }
 
-export default LoginForm;
+export default CreateLogin;

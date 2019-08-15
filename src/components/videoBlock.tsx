@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactPlayer from 'react-player'
-import "../App.css"
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import NaviBar from './naviBar'
+import '../App.css';
 
 interface IState {
     genre: string,
@@ -11,12 +13,7 @@ interface IState {
     idList: Array<string>,
 }
 
-interface IProps {
-    //account: any;
-}
-
-
-class VideoBlock extends React.Component<IProps, IState> {
+class VideoBlock extends React.Component<{}, IState> {
     public constructor(props:any) {
         super(props);
         this.state={
@@ -32,7 +29,7 @@ class VideoBlock extends React.Component<IProps, IState> {
     }
 
     public getTrendingVideos = () => {
-        fetch("https://localhost:44301/api/testing", {
+        fetch("https://localhost:44325/api/Videos/testing", {
             method: "GET"
         }).then((ret:any) => {
             return ret.json();
@@ -46,60 +43,52 @@ class VideoBlock extends React.Component<IProps, IState> {
 
     public addVideos = () => {
         const videoURLs = this.state.idList.map((id) => (
-        <ReactPlayer key={id}
-            url={"https://www.youtube.com/watch?v=" + id}
-            playing={false}
-            />))
+        <Grid item xs={4}>
+        <Card>
+            <div className="React-Wrapper">
+            <ReactPlayer 
+                url={"https://www.youtube.com/watch?v=" + id}
+                playing={false}
+                width="100%"
+                height="100%"
+            />
+            </div>
+            <Button fullWidth={true}>
+                Add to favourites
+            </Button>
+        </Card>
+        </Grid>))
         return videoURLs;
     }
 
-    public addRow = () => {
-        return(
-            <React.Fragment>
-            <Grid item xs={4}>
-                <Paper>
-                    <ReactPlayer 
-                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
-                        playing={false}
-                    />
-                </Paper>
-            </Grid>
-
-            <Grid item xs={4}>
-            <Paper>
-                    <ReactPlayer 
-                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
-                        playing={false}
-                    />
-            </Paper>
-            </Grid>
-
-            <Grid item xs={4}>
-                <Paper>
-                    <ReactPlayer 
-                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
-                        playing={false}
-                    />
-                </Paper>
-            </Grid>
-            </React.Fragment>
-        )
+    public changeGenre = () => {
+        alert("Hello World")
     }
 
     public render() {
         return(
-            <div className="Outside-Box">
-                <Grid container spacing={1}>
+            <div>
+            <Box m={4}>
+                <NaviBar changeGenre={this.changeGenre}/>
+            </Box>
+            <Box m={2}>
+                <Grid container spacing={1} justify="center" alignItems="center">
                     <Grid container item xs={12} spacing={3}>
-                        {this.addRow()}
-                    </Grid>
-                    <Grid container item xs={12} spacing={3}>
-                        {this.addRow()}
+                        {this.addVideos()}
                     </Grid>
                 </Grid>
+            </Box>
             </div>
         )
     }
 }
 {/* {this.addVideos()} */}
 export default VideoBlock;
+
+
+{/* <ReactPlayer 
+                        url={"https://www.youtube.com/watch?v=ulmPBRvvKaI"}
+                        playing={false}
+                        height={"90%"}
+                        width={"90%"}
+                    /> */}

@@ -3,8 +3,9 @@ import "../App.css"
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logo from '../img/logo.png'
-import CreateLogin from './createLogin'
+import logo from '../img/logo.png';
+import CreateLogin from './createLogin';
+import Box from '@material-ui/core/Box';
 
 interface IState {
     username: string,
@@ -45,7 +46,6 @@ class LoginForm extends React.Component<IProps, IState> {
     public handleSubmit(event:any) {
         if(this.state.username === "admin" && this.state.password === "12345") {
             this.props.login()
-
         }
         event.preventDefault()
     }
@@ -68,7 +68,7 @@ class LoginForm extends React.Component<IProps, IState> {
 
     public render() {
         return(
-            <div className="testing">
+            <Box>
                 <Paper className="Login-Form">
                 {!this.state.createAccount && (
                 <div>
@@ -105,7 +105,7 @@ class LoginForm extends React.Component<IProps, IState> {
                     <CreateLogin login={this.props.login} create={this.createAccount}/>
                 )}
                 </Paper>
-            </div>
+            </Box>
         )
     }
 

@@ -3,7 +3,6 @@ import './App.css';
 import LoginForm from './components/loginForm'
 import VideoBlock from './components/videoBlock'
 import Heading from './components/heading'
-import { string } from 'prop-types';
 
 
 interface IState{

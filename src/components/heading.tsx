@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -15,8 +16,7 @@ class Heading extends React.Component <IProps, {}> {
 
     render(){
         return(
-            <div>
-                <div>
+                <Box>
                     <AppBar position="static"  className="Heading">
                         <Toolbar>
                             {this.props.user != "" && 
@@ -26,8 +26,8 @@ class Heading extends React.Component <IProps, {}> {
                             }
                         </Toolbar>
                     </AppBar>
-                </div>
-            </div>
+                </Box>
+
         )
     }
 }

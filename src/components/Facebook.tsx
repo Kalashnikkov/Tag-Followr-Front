@@ -42,6 +42,7 @@ class Facebook extends React.Component<IProps, IState> {
             method: "POST"
         }).then((ret: any) => {
             if (ret.ok) {
+                this.props.fbLogin(this.state.name, true);
                 return ret.json();
             }
             throw new Error("Username already exists.");
@@ -50,7 +51,6 @@ class Facebook extends React.Component<IProps, IState> {
         }).catch(function (error) {
             alert("Error in operation: " + error.message)
         });
-        this.props.fbLogin(this.state.name, true);
     }
 
     public responseFacebook = (response:any) => {
@@ -70,6 +70,7 @@ class Facebook extends React.Component<IProps, IState> {
                     appId="432668367326645"
                     autoLoad={false}
                     fields="name,email,picture"
+                    onClick={this.createAccount}
                     callback={this.responseFacebook}
                 />
             </div>

@@ -30,7 +30,6 @@ class App extends React.Component<{}, IState> {
         user: user,
       })
     } else {
-      alert("Facebook is false.")
       this.setState({
         isLoggedIn: true,
         user: user,

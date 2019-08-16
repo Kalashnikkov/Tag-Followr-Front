@@ -118,13 +118,13 @@ class VideoBlock extends React.Component<IProps, IState> {
                     {this.state.genre != "favourites" && 
                     (
                         <Button fullWidth={true} onClick={() => this.storeVideo(id)}>
-                            {id}
+                            Add to favourites
                         </Button>
                     )}
                     {this.state.genre === "favourites" && 
                     (
                         <Button fullWidth={true} onClick={() => this.deleteVideo(id)}>
-                            {id}
+                            Remove this video
                         </Button>
                     )}
                 </Card>

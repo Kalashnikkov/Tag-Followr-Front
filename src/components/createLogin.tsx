@@ -1,9 +1,8 @@
 import React from 'react';
 import "../App.css"
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 interface IState {
     username: string,
@@ -16,37 +15,39 @@ interface IProps {
 }
 
 class CreateLogin extends React.Component<IProps, IState> {
-    public constructor(props:any) {
+    public constructor(props: any) {
         super(props)
-        this.state={
-            username:"",
-            password:"",
+        this.state = {
+            username: "",
+            password: "",
         }
 
-        this.handleUsername=this.handleUsername.bind(this);
-        this.handlePassword=this.handlePassword.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-        this.handleClick=this.handleClick.bind(this);
+        this.handleUsername = this.handleUsername.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    public handleUsername(event:any) {
+    public handleUsername(event: any) {
         this.setState({
-            username:  event.target.value
+            username: event.target.value
         })
     }
 
-    public handlePassword(event:any) {
+    public handlePassword(event: any) {
         this.setState({
-            password:  event.target.value
+            password: event.target.value
         })
     }
-    public handleSubmit(event:any) {
-        alert("Calling addAccount")
+    public handleSubmit(event: any) {
         this.addAccount();
-        alert("Calling ENDING")
         event.preventDefault()
     }
     public addAccount = () => {
+        if (this.state.username === "" || this.state.password === "") {
+            alert("Please enter in valid credidentials.")
+            return
+        }
         const accInfo = {
             username: this.state.username,
             password: this.state.password,
@@ -54,51 +55,59 @@ class CreateLogin extends React.Component<IProps, IState> {
         }
 
         fetch("https://trendfinder.azurewebsites.net/api/Accounts", {
-          body: JSON.stringify(accInfo),
-          headers: {
-            Accept: "text/plain",
-            "Content-Type": "application/json"
-          },
-          method: "POST"
-        }).then(() => {
-          this.props.login();
-        })
-      }
+            body: JSON.stringify(accInfo),
+            headers: {
+                Accept: "text/plain",
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        }).then((ret: any) => {
+            if (ret.ok) {
+                return ret.json();
+            }
+            throw new Error("Username already exists.");
+        }).then((data) => {
+            alert("Successfully created account for: " + data.username);
+            this.props.login(this.state.username, false);
+        }).catch(function (error) {
+            alert("Error in operation: " + error.message)
+        });
+    }
 
     public handleClick() {
         this.props.create();
     }
 
     public render() {
-        return(
-            <div>
-                <form onSubmit={this.handleSubmit} className="Login-Box">
+        return (
+            <Box>
+                <form onSubmit={this.handleSubmit}>
                     <TextField
-                    label="Username"
-                    type="text"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.username} 
-                    onChange={this.handleUsername}
-                    className="Login-Dets"
+                        label="Username"
+                        type="text"
+                        margin="normal"
+                        variant="filled"
+                        value={this.state.username}
+                        onChange={this.handleUsername}
+                        className="Login-Dets"
                     />
                     <TextField
-                    label="Password"
-                    type="password"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.password} 
-                    onChange={this.handlePassword}
-                    className="Login-Dets"
+                        label="Password"
+                        type="password"
+                        margin="normal"
+                        variant="filled"
+                        value={this.state.password}
+                        onChange={this.handlePassword}
+                        className="Login-Dets"
                     />
                     <Button variant="contained" type="submit" value="submit" className="Login-Button">
                         Confirm
                     </Button>
                 </form>
-                <Button variant="contained" onClick={this.handleClick}>
-                        Back
+                <Button onClick={this.handleClick} fullWidth={true} style={{position:'absolute', bottom: '0px'}}>
+                    Back
                 </Button>
-            </div>
+            </Box>
         )
     }
 }

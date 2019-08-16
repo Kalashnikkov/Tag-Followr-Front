@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 
 interface IProps {
     changeGenre: Function,
+    getFavourites: Function,
 }
 
 class NaviBar extends React.Component<IProps, {}> {
@@ -15,7 +16,7 @@ class NaviBar extends React.Component<IProps, {}> {
             <Box>
                     <Grid container spacing={2} justify="center">
                         <Grid item xs={1}>
-                            <Button>
+                            <Button onClick={() => {this.props.getFavourites()}}>
                                 Favourites
                             </Button>
                         </Grid>

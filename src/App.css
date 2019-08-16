@@ -46,6 +46,7 @@
     position: absolute;
     bottom: 0;
     height: 50%;
+    background: green;
 }
 
 .Login-Button {
@@ -58,9 +59,8 @@
 }
 
 .Logo-Img {
-    position: relative;
-    left: 25%;
-    top: 10%;
+    height: 100%;
+    width: 100%;
 }
 
 .Inside {

@@ -1,11 +1,13 @@
 import React from 'react';
 import "../App.css"
-import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logo from '../img/logo.png';
+import logo from '../img/trendFinderLogo.png';
 import CreateLogin from './createLogin';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Facebook from './Facebook';
 
 interface IState {
     username: string,
@@ -18,34 +20,47 @@ interface IProps {
 }
 
 class LoginForm extends React.Component<IProps, IState> {
-    public constructor(props:any) {
+    public constructor(props: any) {
         super(props)
-        this.state={
-          username: "",
-          password: "",
-          createAccount: false,
+        this.state = {
+            username: "",
+            password: "",
+            createAccount: false,
         }
 
-        this.handleUsername=this.handleUsername.bind(this);
-        this.handlePassword=this.handlePassword.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-        this.createAccount=this.createAccount.bind(this);
+        this.handleUsername = this.handleUsername.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.createAccount = this.createAccount.bind(this);
     }
 
-    public handleUsername(event:any) {
+    public handleUsername(event: any) {
         this.setState({
-            username:  event.target.value
+            username: event.target.value
         })
     }
 
-    public handlePassword(event:any) {
+    public handlePassword(event: any) {
         this.setState({
-            password:  event.target.value
+            password: event.target.value
         })
     }
-    public handleSubmit(event:any) {
-        if(this.state.username === "admin" && this.state.password === "12345") {
-            this.props.login()
+
+    public handleSubmit(event: any) {
+        if (this.state.username === "" || this.state.password === "") {
+            alert("Please type in something.")
+        } else {
+            fetch(("https://trendfinder.azurewebsites.net/api/Accounts/" + this.state.username + "?password=" + this.state.password), {
+                method: "GET"
+            }).then((ret: any) => {
+                return ret.json();
+            }).then((data) => {
+                if (data) {
+                    this.props.login(this.state.username, false)
+                } else {
+                    alert("Invalid credidentials. Please try again!")
+                }
+            });
         }
         event.preventDefault()
     }
@@ -53,58 +68,64 @@ class LoginForm extends React.Component<IProps, IState> {
     public createAccount() {
         if (this.state.createAccount === false) {
             this.setState({
-                username:"",
-                password:"",
+                username: "",
+                password: "",
                 createAccount: true,
             })
         } else {
             this.setState({
-                username:"",
-                password:"",
+                username: "",
+                password: "",
                 createAccount: false,
             })
         }
     }
 
     public render() {
-        return(
+        return (
             <Box>
-                <Paper className="Login-Form">
-                {!this.state.createAccount && (
-                <div>
-                <img src={logo} className="Logo-Img"/>
-                <form onSubmit={this.handleSubmit} className="Login-Box">
-                    <TextField
-                    label="Username"
-                    type="text"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.username} 
-                    onChange={this.handleUsername}
-                    className="Login-Dets"
-                    />
-                    <TextField
-                    label="Password"
-                    type="password"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.password} 
-                    onChange={this.handlePassword}
-                    className="Login-Dets"
-                    />
-                    <Button variant="contained" type="submit" value="submit" className="Login-Button">
-                        Login
-                    </Button>
-                    {/* <Facebook/> */}
-                </form>
-                <Button variant="contained" onClick={this.createAccount}>
-                    Create Account
-                </Button>
-                </div>)}
-                {this.state.createAccount && (
-                    <CreateLogin login={this.props.login} create={this.createAccount}/>
-                )}
-                </Paper>
+                <Card className="Login-Form">
+                    {!this.state.createAccount && (
+                        <Box>
+                            <img src={logo} className="Logo-Img" />
+                            <form onSubmit={this.handleSubmit}>
+                                <Grid container spacing={1} justify="center" alignItems="center">
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                label="Username"
+                                                type="text"
+                                                margin="normal"
+                                                variant="filled"
+                                                value={this.state.username}
+                                                onChange={this.handleUsername}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                label="Password"
+                                                type="password"
+                                                margin="normal"
+                                                variant="filled"
+                                                value={this.state.password}
+                                                onChange={this.handlePassword}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Button type="submit" value="submit" fullWidth={true}>
+                                        Login
+                                    </Button>
+                                    <Facebook fbLogin={this.props.login} />
+                                    <Button onClick={this.createAccount} fullWidth={true}>
+                                        Create Account
+                                    </Button>
+                                </Grid>
+                            </form>
+                        </Box>)}
+                    {this.state.createAccount && (
+                        <CreateLogin login={this.props.login} create={this.createAccount} />
+                    )}
+                </Card>
             </Box>
         )
     }
@@ -112,3 +133,5 @@ class LoginForm extends React.Component<IProps, IState> {
 }
 
 export default LoginForm;
+
+

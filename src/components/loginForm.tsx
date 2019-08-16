@@ -58,7 +58,7 @@ class LoginForm extends React.Component<IProps, IState> {
                 if (data) {
                     this.props.login(this.state.username, false)
                 } else {
-                    alert("Invalid credidentials. Please try again!")
+                    alert("Invalid credentials. Please try again!")
                 }
             });
         }

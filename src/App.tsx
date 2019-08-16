@@ -28,20 +28,30 @@ class App extends React.Component<{}, IState> {
       this.setState({
         isLoggedIn: true,
         user: user,
+        facebook: true,
       })
     } else {
       this.setState({
         isLoggedIn: true,
         user: user,
+        facebook: false,
       })
     }
+  }
+
+  public Logout = () => {
+    this.setState({
+      isLoggedIn: false,
+      user:"",
+      facebook:false,
+    })
   }
 
   public render() {
     return (
       <div>
         <div>
-          <Heading user={this.state.user}/>
+          <Heading user={this.state.user} logout={this.Logout}/>
           {!this.state.isLoggedIn &&
           (<div className="Login-Form">
           <LoginForm login={this.Login}/>

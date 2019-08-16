@@ -29,7 +29,7 @@ class VideoBlock extends React.Component<{}, IState> {
     }
 
     public getTrendingVideos = () => {
-        fetch("https://localhost:44325/api/Videos/testing", {
+        fetch(("https://trendfinder.azurewebsites.net/api/Videos/getTrending/" + this.state.genre), {
             method: "GET"
         }).then((ret:any) => {
             return ret.json();
@@ -53,16 +53,18 @@ class VideoBlock extends React.Component<{}, IState> {
                 height="100%"
             />
             </div>
-            <Button fullWidth={true}>
-                Add to favourites
+            <Button fullWidth={true} onClick={(e:any) => {alert("this video's id is: " + id)}}>
+                {id}
             </Button>
         </Card>
         </Grid>))
         return videoURLs;
     }
 
-    public changeGenre = () => {
-        alert("Hello World")
+    public changeGenre = (input:any) => {
+        this.setState({
+            genre: input
+        }, () => this.getTrendingVideos())
     }
 
     public render() {

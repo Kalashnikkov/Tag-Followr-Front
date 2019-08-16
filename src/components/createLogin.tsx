@@ -41,11 +41,29 @@ class CreateLogin extends React.Component<IProps, IState> {
         })
     }
     public handleSubmit(event:any) {
-        if(this.state.username === "hello" && this.state.password === "world") {
-            this.props.login()
-        }
+        alert("Calling addAccount")
+        this.addAccount();
+        alert("Calling ENDING")
         event.preventDefault()
     }
+    public addAccount = () => {
+        const accInfo = {
+            username: this.state.username,
+            password: this.state.password,
+            id: 0,
+        }
+
+        fetch("https://trendfinder.azurewebsites.net/api/Accounts", {
+          body: JSON.stringify(accInfo),
+          headers: {
+            Accept: "text/plain",
+            "Content-Type": "application/json"
+          },
+          method: "POST"
+        }).then(() => {
+          this.props.login();
+        })
+      }
 
     public handleClick() {
         this.props.create();

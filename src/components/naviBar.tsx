@@ -9,19 +9,7 @@ interface IProps {
     changeGenre: Function,
 }
 
-interface IState {
-    genre: string,
-}
-
-class NaviBar extends React.Component<IProps, IState> {
-    public constructor(props:any) {
-        super(props)
-        this.state={
-          genre: "Music"
-        }
-      }
-
-
+class NaviBar extends React.Component<IProps, {}> {
     public render() {
         return(
             <Box>
@@ -32,48 +20,33 @@ class NaviBar extends React.Component<IProps, IState> {
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                Music (10)
+                            <Button onClick={() => {this.props.changeGenre("music")}}>
+                                Music
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                Gaming (20)
+                            <Button onClick={() => {this.props.changeGenre("gaming")}}>
+                                Gaming
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                News (25)
+                            <Button onClick={() => {this.props.changeGenre("film")}}>
+                                Film
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                Film (1)
+                            <Button onClick={() => {this.props.changeGenre("comedy")}}>
+                                Comedy
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                Comedy (23)
+                            <Button onClick={() => {this.props.changeGenre("automotive")}}>
+                                Automotive
                             </Button>
                         </Grid>
                         <Grid item xs={1}>
-                            <Button>
-                                Horror (39)
-                            </Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button>
-                                Thriller (41)
-                            </Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button>
-                                Automotive (2)
-                            </Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button>
-                                Animals (15)
+                            <Button onClick={() => {this.props.changeGenre("animals")}}>
+                                Animals
                             </Button>
                         </Grid>
                     </Grid>

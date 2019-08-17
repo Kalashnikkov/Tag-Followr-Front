@@ -27,6 +27,9 @@ class Facebook extends React.Component<IProps, IState> {
     }
 
     public createAccount = () => {
+        if (this.state.name != "") {
+
+        
         const accInfo = {
             username: this.state.name,
             password: this.state.userID,
@@ -49,8 +52,10 @@ class Facebook extends React.Component<IProps, IState> {
         }).then((data) => {
             alert("Successfully created account for: " + data.username);
         }).catch(function (error) {
-            alert("Error in operation: " + error.message)
+            console.log("Error in operation: " + error.message)
         });
+        this.props.fbLogin(this.state.name, true);
+    } else return;
     }
 
     public responseFacebook = (response:any) => {
